@@ -27,7 +27,7 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
                 image: session?.user.image || null,
               }}
             />
-            <span className="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full" />
+            <span className="top-0 left-4 absolute  w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full" />
           </div>
           <Input
             readOnly
