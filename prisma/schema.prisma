@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgres"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -33,6 +33,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -41,6 +42,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -74,6 +77,7 @@ model Subreddit {
   subscribers Subscription[]
 
   @@index([name])
+  @@index([creatorId])
 }
 
 model Subscription {
@@ -83,6 +87,8 @@ model Subscription {
   subredditId String
 
   @@id([userId, subredditId])
+  @@index([subredditId])
+  @@index([userId])
 }
 
 model Post {
@@ -97,6 +103,9 @@ model Post {
   subredditId String
   comments    Comment[]
   votes       Vote[]
+
+  @@index([authorId])
+  @@index([subredditId])
 }
 
 model Comment {
@@ -109,11 +118,15 @@ model Comment {
   postId    String
 
   replyToId String?
-  replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   replies   Comment[] @relation("ReplyTo")
 
   votes     CommentVote[]
   commentId String?
+
+  @@index([authorId])
+  @@index([postId])
+  @@index([replyToId])
 }
 
 model Vote {
@@ -124,6 +137,8 @@ model Vote {
   type   VoteType
 
   @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
 }
 
 model CommentVote {
@@ -134,4 +149,6 @@ model CommentVote {
   type      VoteType
 
   @@id([userId, commentId])
+  @@index([userId])
+  @@index([commentId])
 }
