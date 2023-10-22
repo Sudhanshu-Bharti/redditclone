@@ -14,6 +14,7 @@ const Page = () => {
   const [input, setInput] = useState<string>("");
   const router = useRouter();
   const { loginToast } = useCustomToast();
+
   //using reactQuery
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {

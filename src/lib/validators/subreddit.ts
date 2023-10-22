@@ -5,10 +5,10 @@ export const SubredditValidator = z.object({
 });
 
 export const SubredditSubscriptionValidator = z.object({
-  subreddditId: z.string(),
+  subredditId: z.string(),
 });
 
 export type CreateSubredditPayload = z.infer<typeof SubredditValidator>;
-export type SubsribeToSubredditPayload = z.infer<
+export type SubsrcibeToSubredditPayload = z.infer<
   typeof SubredditSubscriptionValidator
 >;
