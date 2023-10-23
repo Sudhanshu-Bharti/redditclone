@@ -1,20 +1,19 @@
-import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
-import { buttonVariants } from "@/components/ui/Button";
-import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { format } from "date-fns";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ReactNode } from "react";
+import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle"
+import { buttonVariants } from "@/components/ui/Button"
+import { getAuthSession } from "@/lib/auth"
+import { db } from "@/lib/db"
+import { format } from "date-fns"
+import Link from "next/link"
+import { notFound } from "next/navigation"
 
 const Layout = async ({
   children,
   params: { slug },
 }: {
-  children: React.ReactNode;
-  params: { slug: string };
+  children: React.ReactNode
+  params: { slug: string }
 }) => {
-  const session = await getAuthSession();
+  const session = await getAuthSession()
   const subreddit = await db.subreddit.findFirst({
     where: {
       name: slug,
@@ -27,7 +26,7 @@ const Layout = async ({
         },
       },
     },
-  });
+  })
 
   const subscription = !session?.user
     ? undefined
@@ -40,12 +39,12 @@ const Layout = async ({
             id: session.user.id,
           },
         },
-      });
+      })
 
-  const isSubsribed = !!subscription;
+  const isSubsribed = !!subscription
 
   if (!subreddit) {
-    return notFound();
+    return notFound()
   }
 
   const memberCount = await db.subscription.count({
@@ -54,7 +53,7 @@ const Layout = async ({
         name: slug,
       },
     },
-  });
+  })
 
   return (
     <div className="sm:container max-w-7xl mx-auto h-full pt-12">
@@ -114,7 +113,7 @@ const Layout = async ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

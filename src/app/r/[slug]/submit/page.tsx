@@ -1,13 +1,12 @@
-import Editor from "@/components/Editor";
-import { Button } from "@/components/ui/Button";
-import { db } from "@/lib/db";
-import { notFound } from "next/navigation";
-import { FC } from "react";
+import Editor from "@/components/Editor"
+import { Button } from "@/components/ui/Button"
+import { db } from "@/lib/db"
+import { notFound } from "next/navigation"
 
 interface PageProps {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
 }
 
 const page = async ({ params }: PageProps) => {
@@ -15,10 +14,10 @@ const page = async ({ params }: PageProps) => {
     where: {
       name: params.slug,
     },
-  });
+  })
 
   if (!subreddit) {
-    return notFound();
+    return notFound()
   }
   return (
     <div className="flex flex-col items-start gap-6">
@@ -41,7 +40,7 @@ const page = async ({ params }: PageProps) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page
