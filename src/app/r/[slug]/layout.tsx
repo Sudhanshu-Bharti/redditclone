@@ -1,7 +1,9 @@
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import { buttonVariants } from "@/components/ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { format } from "date-fns";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -97,6 +99,16 @@ const Layout = async ({
                   isSubscribed={isSubsribed}
                 />
               ) : null}
+
+              <Link
+                href={`r/${slug}/submit`}
+                className={buttonVariants({
+                  variant: "outline",
+                  className: "w-full mb-6",
+                })}
+              >
+                Create Post
+              </Link>
             </dl>
           </div>
         </div>
