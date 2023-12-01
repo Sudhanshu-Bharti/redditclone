@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-no-undef */
 // import CommentsSection from '@/components/CommentsSection'
 import EditorOutput from "@/components/EditorOutput"
-// import PostVoteServer from '@/components/post-vote/PostVoteServer'
+import PostVoteServer from "@/components/post-vote/PostVoteServer"
 import { buttonVariants } from "@/components/ui/Button"
 import { db } from "@/lib/db"
 import { redis } from "@/lib/redis"
@@ -45,8 +46,8 @@ const SubRedditPostPage = async ({ params }: SubRedditPostPageProps) => {
     <div>
       <div className="h-full flex flex-col sm:flex-row items-center sm:items-start justify-between">
         <Suspense fallback={<PostVoteShell />}>
-          {/* @ts-ignore */}
-          {/* <PostVoteServer
+          {/* @ts-expect-error server component */}
+          <PostVoteServer
             postId={post?.id ?? cachedPost.id}
             getData={async () => {
               return await db.post.findUnique({
@@ -58,9 +59,8 @@ const SubRedditPostPage = async ({ params }: SubRedditPostPageProps) => {
                 },
               })
             }}
-          /> */}
+          />
         </Suspense>
-
         <div className="sm:w-0 w-full flex-1 bg-white p-4 rounded-sm">
           <p className="max-h-40 mt-1 truncate text-xs text-gray-500">
             Posted by u/{post?.author.username ?? cachedPost.authorUsername}{" "}
@@ -95,7 +95,7 @@ function PostVoteShell() {
 
       {/* score */}
       <div className="text-center py-2 font-medium text-sm text-zinc-900">
-        <Loader2 className="h-3 w-3 animate-spin" />
+        {/* <Loader2 className="h-3 w-3 animate-spin" /> */}
       </div>
 
       {/* downvote */}
