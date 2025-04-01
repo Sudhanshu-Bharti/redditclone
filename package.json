@@ -38,7 +38,7 @@
     "@uploadthing/react": "^4.0.0",
     "@upstash/redis": "^1.21.0",
     "autoprefixer": "10.4.14",
-    "axios": "^1.4.0",
+    "axios": "^1.8.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
